@@ -27,6 +27,11 @@ public class Gato extends JLabel implements Runnable {
         iniciarThread();
     }
     
+    // Método estático para resetar a contagem
+    public static void resetarContagem() {
+        posicao = 0;
+    }
+    
     private void carregarImagem(String caminho) {
         try {
             File arquivo = new File(caminho);
@@ -138,7 +143,19 @@ public class Gato extends JLabel implements Runnable {
         correndo = false;
         if (thread != null) {
             thread.interrupt();
+            thread = null;
         }
+        
+        // Limpar recursos visuais
+        setVisible(false);
+        setIcon(null);
+    }
+    
+    // Método para limpeza completa
+    public void limpar() {
+        parar();
+        setText("");
+        setBounds(0, 0, 0, 0);
     }
     
     public String getNome() {

@@ -135,9 +135,9 @@ public class CorridaGatos extends JFrame implements ActionListener {
             btnParar.setEnabled(true);
             
             // Criar gatos com imagens reais
-            gato1 = new Gato("Gato Laranja", "Threads/src/imagens/gato1.jpg", 50, 80);
-            gato2 = new Gato("Gato Cinza", "Threads/src/imagens/gato2.jpg", 50, 200);
-            gato3 = new Gato("Gato Preto", "Threads/src/imagens/gato3.jpg", 50, 320);
+            gato1 = new Gato("Gato Cinza", "Threads/src/imagens/gato1.jpg", 50, 80);
+            gato2 = new Gato("Gato Rajado", "Threads/src/imagens/gato2.jpg", 50, 200);
+            gato3 = new Gato("Gato Laranja", "Threads/src/imagens/gato3.jpg", 50, 320);
             
             // Adicionar à pista
             painelPista.add(gato1);
@@ -153,9 +153,29 @@ public class CorridaGatos extends JFrame implements ActionListener {
         if (corridaAtiva) {
             corridaAtiva = false;
             
-            if (gato1 != null) gato1.parar();
-            if (gato2 != null) gato2.parar();
-            if (gato3 != null) gato3.parar();
+            // Parar e limpar gatos completamente
+            if (gato1 != null) {
+                gato1.limpar();
+                painelPista.remove(gato1);
+                gato1 = null;
+            }
+            if (gato2 != null) {
+                gato2.limpar();
+                painelPista.remove(gato2);
+                gato2 = null;
+            }
+            if (gato3 != null) {
+                gato3.limpar();
+                painelPista.remove(gato3);
+                gato3 = null;
+            }
+            
+            // Resetar contagem quando parar
+            Gato.resetarContagem();
+            
+            // Forçar atualização da interface
+            painelPista.revalidate();
+            painelPista.repaint();
             
             btnIniciar.setEnabled(true);
             btnParar.setEnabled(false);
@@ -171,6 +191,9 @@ public class CorridaGatos extends JFrame implements ActionListener {
         if (gato3 != null) painelPista.remove(gato3);
         
         gato1 = gato2 = gato3 = null;
+        
+        // Resetar contagem ao reiniciar
+        Gato.resetarContagem();
         
         painelPista.revalidate();
         painelPista.repaint();
