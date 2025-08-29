@@ -1,47 +1,44 @@
 package Agenda.Class;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 public class Agenda {
-    private String nomeEvento;
-    private LocalDate dataEvento;
-    private LocalTime horarioEvento;
+    private String nome;
+    private String telefone;
+    private String email;
     
-    public Agenda(String nomeEvento, LocalDate dataEvento, LocalTime horarioEvento) {
-        this.nomeEvento = nomeEvento;
-        this.dataEvento = dataEvento;
-        this.horarioEvento = horarioEvento;
+    public Agenda(String nome, String telefone, String email) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.email = email;
     }
     
     // Getters e Setters
-    public String getNomeEvento() {
-        return nomeEvento;
+    public String getNome() {
+        return nome;
     }
     
-    public void setNomeEvento(String nomeEvento) {
-        this.nomeEvento = nomeEvento;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
-    public LocalDate getDataEvento() {
-        return dataEvento;
+    public String getTelefone() {
+        return telefone;
     }
     
-    public void setDataEvento(LocalDate dataEvento) {
-        this.dataEvento = dataEvento;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
     }
     
-    public LocalTime getHorarioEvento() {
-        return horarioEvento;
+    public String getEmail() {
+        return email;
     }
     
-    public void setHorarioEvento(LocalTime horarioEvento) {
-        this.horarioEvento = horarioEvento;
+    public void setEmail(String email) {
+        this.email = email;
     }
     
     @Override
     public String toString() {
-        return nomeEvento + "|" + dataEvento + "|" + horarioEvento;
+        return nome + "|" + telefone + "|" + email;
     }
     
     public static Agenda fromString(String linha) {
@@ -49,8 +46,8 @@ public class Agenda {
         if (partes.length == 3) {
             return new Agenda(
                 partes[0],
-                LocalDate.parse(partes[1]),
-                LocalTime.parse(partes[2])
+                partes[1],
+                partes[2]
             );
         }
         return null;

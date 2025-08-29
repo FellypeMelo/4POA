@@ -1,1 +1,2 @@
-Festa do Marco|2025-09-27|16:00
+# Formato: nome|telefone|email
+Manguapo|(21) 99999-9999|pexisdro@gmail.com

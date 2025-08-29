@@ -1,6 +1,7 @@
 package Agenda.Main;
 
 import Agenda.Controller.AgendaController;
+import Agenda.Class.Agenda;
 import java.util.Scanner;
 
 public class Main {
@@ -8,15 +9,16 @@ public class Main {
         AgendaController controller = new AgendaController();
         Scanner scanner = new Scanner(System.in);
         
-        System.out.println("=== AGENDA DE EVENTOS ===");
+        System.out.println("=== AGENDA DE CONTATOS ===");
         
         while (true) {
             System.out.println("\nEscolha uma opção:");
-            System.out.println("1. Adicionar evento");
-            System.out.println("2. Remover evento");
-            System.out.println("3. Editar evento");
-            System.out.println("4. Listar eventos");
-            System.out.println("5. Sair");
+            System.out.println("1. Adicionar contato");
+            System.out.println("2. Remover contato");
+            System.out.println("3. Editar contato");
+            System.out.println("4. Buscar contato");
+            System.out.println("5. Listar contatos");
+            System.out.println("6. Sair");
             System.out.print("Opção: ");
             
             int opcao = scanner.nextInt();
@@ -24,18 +26,21 @@ public class Main {
             
             switch (opcao) {
                 case 1:
-                    adicionarEvento(controller, scanner);
+                    adicionarContato(controller, scanner);
                     break;
                 case 2:
-                    removerEvento(controller, scanner);
+                    removerContato(controller, scanner);
                     break;
                 case 3:
-                    editarEvento(controller, scanner);
+                    editarContato(controller, scanner);
                     break;
                 case 4:
-                    controller.listarEventos();
+                    buscarContato(controller, scanner);
                     break;
                 case 5:
+                    controller.listarContatos();
+                    break;
+                case 6:
                     System.out.println("Saindo da agenda...");
                     scanner.close();
                     System.exit(0);
@@ -45,51 +50,67 @@ public class Main {
         }
     }
     
-    private static void adicionarEvento(AgendaController controller, Scanner scanner) {
-        System.out.print("Nome do evento: ");
+    private static void adicionarContato(AgendaController controller, Scanner scanner) {
+        System.out.print("Nome do contato: ");
         String nome = scanner.nextLine();
         
-        System.out.print("Data do evento (YYYY-MM-DD): ");
-        String data = scanner.nextLine();
+        System.out.print("Telefone: ");
+        String telefone = scanner.nextLine();
         
-        System.out.print("Horário do evento (HH:MM): ");
-        String horario = scanner.nextLine();
+        System.out.print("Email: ");
+        String email = scanner.nextLine();
         
-        if (controller.adicionarEvento(nome, data, horario)) {
-            System.out.println("Evento adicionado com sucesso!");
+        if (controller.adicionarContato(nome, telefone, email)) {
+            System.out.println("Contato adicionado com sucesso!");
         } else {
-            System.out.println("Falha ao adicionar evento. Verifique o formato da data e horário.");
+            System.out.println("Falha ao adicionar contato.");
         }
     }
     
-    private static void removerEvento(AgendaController controller, Scanner scanner) {
-        System.out.print("Nome do evento a ser removido: ");
+    private static void removerContato(AgendaController controller, Scanner scanner) {
+        System.out.print("Nome do contato a ser removido: ");
         String nome = scanner.nextLine();
         
-        if (controller.removerEvento(nome)) {
-            System.out.println("Evento removido com sucesso!");
+        if (controller.removerContato(nome)) {
+            System.out.println("Contato removido com sucesso!");
         } else {
-            System.out.println("Evento não encontrado.");
+            System.out.println("Contato não encontrado.");
         }
     }
     
-    private static void editarEvento(AgendaController controller, Scanner scanner) {
-        System.out.print("Nome do evento a ser editado: ");
+    private static void editarContato(AgendaController controller, Scanner scanner) {
+        System.out.print("Nome do contato a ser editado: ");
         String nomeAntigo = scanner.nextLine();
         
-        System.out.print("Novo nome do evento: ");
+        System.out.print("Novo nome: ");
         String novoNome = scanner.nextLine();
         
-        System.out.print("Nova data do evento (YYYY-MM-DD): ");
-        String novaData = scanner.nextLine();
+        System.out.print("Novo telefone: ");
+        String novoTelefone = scanner.nextLine();
         
-        System.out.print("Novo horário do evento (HH:MM): ");
-        String novoHorario = scanner.nextLine();
+        System.out.print("Novo email: ");
+        String novoEmail = scanner.nextLine();
         
-        if (controller.editarEvento(nomeAntigo, novoNome, novaData, novoHorario)) {
-            System.out.println("Evento editado com sucesso!");
+        if (controller.editarContato(nomeAntigo, novoNome, novoTelefone, novoEmail)) {
+            System.out.println("Contato editado com sucesso!");
         } else {
-            System.out.println("Falha ao editar evento. Verifique se o evento existe e o formato dos dados.");
+            System.out.println("Falha ao editar contato. Verifique se o contato existe.");
+        }
+    }
+    
+    private static void buscarContato(AgendaController controller, Scanner scanner) {
+        System.out.print("Nome do contato a ser buscado: ");
+        String nome = scanner.nextLine();
+        
+        Agenda contato = controller.buscarContato(nome);
+        if (contato != null) {
+            System.out.println("\n=== CONTATO ENCONTRADO ===");
+            System.out.printf("Nome: %s%n", contato.getNome());
+            System.out.printf("Telefone: %s%n", contato.getTelefone());
+            System.out.printf("Email: %s%n", contato.getEmail());
+            System.out.println("==========================");
+        } else {
+            System.out.println("Contato não encontrado.");
         }
     }
 }

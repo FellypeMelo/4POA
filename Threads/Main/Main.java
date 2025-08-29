@@ -1,12 +1,12 @@
-package Threads.Main;
+package Main;
 
 import javax.swing.SwingUtilities;
-import Threads.Main.JanelaCorrida;
+import Main.CorridaGatos;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
-            new JanelaCorrida();
+            new CorridaGatos();
         });
     }
 }
